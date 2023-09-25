@@ -1,28 +1,51 @@
 import React from "react";
 import { LayoutChangeEvent, StyleSheet, View } from "react-native";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import {
+  Gesture,
+  GestureDetector,
+  GestureStateChangeEvent,
+  TapGestureHandlerEventPayload,
+} from "react-native-gesture-handler";
 
 import Animated, {
   Easing,
-  useAnimatedStyle,
-  useDerivedValue,
-  useSharedValue,
+  runOnJS,
   withDelay,
   withRepeat,
   withTiming,
+  useSharedValue,
+  useDerivedValue,
+  useAnimatedStyle,
 } from "react-native-reanimated";
 
 type Props = {
-  delay: number;
-  dropTime?: number;
-  height?: number;
+  index: number;
+  initialDelay: number;
+  deviceHeight: number;
 };
 
 const Tile: React.FC<Props> = (props) => {
-  const { delay = 1000, dropTime, height = 900 } = props;
-  const translateY1 = useSharedValue(-200);
-  const duration = useSharedValue(3500);
+  const { index, initialDelay, deviceHeight } = props;
 
+  const [tapCount, setTapCount] = React.useState(0);
+
+  const initialTransalteY = -300;
+  const translateY1 = useSharedValue(initialTransalteY);
+
+  const initialDuration = 4000;
+  const duration = useSharedValue(initialDuration);
+
+  const finalDuration = 800;
+
+  const derivedDuration = useDerivedValue(() => {
+    if (tapCount >= 3200) {
+      return (duration.value = finalDuration);
+    } else {
+      return duration.value - tapCount;
+    }
+  });
+
+  const delay = useSharedValue(initialDelay);
 
   const animatedTileStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY1.value }],
@@ -30,10 +53,10 @@ const Tile: React.FC<Props> = (props) => {
 
   const action = () => {
     translateY1.value = withDelay(
-      delay,
+      delay.value,
       withRepeat(
-        withTiming(height, {
-          duration: duration.value,
+        withTiming(deviceHeight, {
+          duration: derivedDuration.value,
           easing: Easing.linear,
         }),
         0,
@@ -44,36 +67,48 @@ const Tile: React.FC<Props> = (props) => {
 
   const tilePath = (event: LayoutChangeEvent) => {
     const { width, height, x, y } = event.nativeEvent.layout;
-    console.log('Time Dimension: ', width, height, x, y);
   };
 
-  /** handling tap action */
   const tap = Gesture.Tap()
     .onBegin(() => {
-      translateY1.value = -200;
+      translateY1.value = initialTransalteY;
     })
-    .onFinalize(() => {
-      translateY1.value = withDelay(
-        delay,
-        withRepeat(
-          withTiming(height, {
-            duration: duration.value,
-            easing: Easing.linear,
-          }),
-          0,
-          false
-        )
-      );
-    });
+    .onFinalize(
+      (event: GestureStateChangeEvent<TapGestureHandlerEventPayload>) => {
+        runOnJS(setTapCount)(tapCount + 100);
+        translateY1.value = withDelay(
+          delay.value,
+          withRepeat(
+            withTiming(deviceHeight, {
+              duration: derivedDuration.value,
+              easing: Easing.linear,
+            }),
+            0,
+            false
+          )
+        );
+      }
+    );
 
   React.useEffect(() => {
     action();
+    console.log("On mount only");
   }, []);
+
+  React.useEffect(() => {
+    console.log("Tile No: ", index);
+    console.log("Tap Count: ", tapCount);
+    console.log("Delay duration", delay.value);
+    console.log("Derived duration: ", derivedDuration.value);
+  }, [tapCount]);
 
   return (
     <View style={[styles.container]}>
       <GestureDetector gesture={tap}>
-        <Animated.View style={[styles.tile, animatedTileStyle]} onLayout={tilePath}></Animated.View>
+        <Animated.View
+          style={[styles.tile, animatedTileStyle]}
+          onLayout={tilePath}
+        ></Animated.View>
       </GestureDetector>
     </View>
   );
@@ -88,7 +123,7 @@ const styles = StyleSheet.create({
   },
   tile: {
     width: 80,
-    height: 120,
+    height: 180,
     backgroundColor: "#000000",
   },
 });

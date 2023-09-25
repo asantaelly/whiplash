@@ -1,15 +1,16 @@
 import React from "react";
 import {
+  View,
+  StyleSheet,
   ActivityIndicator,
   LayoutChangeEvent,
-  StyleSheet,
-  View,
 } from "react-native";
 
 import AppLayout from "../layouts/AppLayout";
 import Tile from "../components/shared/Tile";
 
-const Home = () => {
+const Auditorium = () => {
+  /** screen dimensions */
   const [viewHeight, setViewHeight] = React.useState<number | null>(null);
 
   const viewLayout = (event: LayoutChangeEvent) => {
@@ -25,10 +26,10 @@ const Home = () => {
         </View>
       ) : (
         <View style={[styles.container]}>
-          <Tile delay={1000} />
-          {/* <Tile delay={2000} />
-          <Tile delay={2500} />
-          <Tile delay={500} /> */}
+          <Tile index={1} initialDelay={2200} deviceHeight={viewHeight} />
+          <Tile index={2} initialDelay={1800} deviceHeight={viewHeight} />
+          <Tile index={3} initialDelay={1200} deviceHeight={viewHeight} />
+          <Tile index={4} initialDelay={1500} deviceHeight={viewHeight} />
         </View>
       )}
     </AppLayout>
@@ -49,4 +50,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Auditorium;

@@ -47,7 +47,7 @@ const Home = () => {
   React.useEffect(() => {
     translateY1.value = withRepeat(
       withTiming(900, {
-        duration: 3000,
+        duration: 4000,
         easing: Easing.linear,
       }),
       0,
@@ -56,7 +56,7 @@ const Home = () => {
 
     translateY2.value = withRepeat(
       withTiming(900, {
-        duration: 2000,
+        duration: 3000,
         easing: Easing.linear,
       }),
       0,
@@ -65,7 +65,7 @@ const Home = () => {
 
     translateY3.value = withRepeat(
       withTiming(900, {
-        duration: 1000,
+        duration: 2000,
         easing: Easing.linear,
       }),
       0,
@@ -74,7 +74,7 @@ const Home = () => {
 
     translateY4.value = withRepeat(
       withTiming(900, {
-        duration: 500,
+        duration: 1000,
         easing: Easing.linear,
       }),
       0,

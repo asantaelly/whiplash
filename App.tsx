@@ -3,7 +3,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import AppNavigator from "./src/navigation/AppNavigator";
-import LevelProvider from "./src/Providers/Level";
+import LevelProvider from "./src/providers/Level";
 
 export default function App() {
   return (

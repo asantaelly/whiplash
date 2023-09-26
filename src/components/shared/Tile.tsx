@@ -1,5 +1,6 @@
 import React from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 import Animated, {
   Easing,
@@ -10,22 +11,16 @@ import Animated, {
   useSharedValue,
   useDerivedValue,
   useAnimatedStyle,
+  cancelAnimation,
 } from "react-native-reanimated";
 
-import {
-  Gesture,
-  GestureDetector,
-  GestureStateChangeEvent,
-  TapGestureHandlerEventPayload,
-} from "react-native-gesture-handler";
-
 /** local imports */
-import { LevelContext } from "../../Providers/Level";
+import { LevelContext } from "../../providers/Level";
 
 type Props = {
   index: number;
   initialDelay: number;
-  deviceHeight: number;
+  deviceHeight?: number;
 };
 
 enum Configurations {
@@ -36,10 +31,11 @@ enum Configurations {
 
 const Tile: React.FC<Props> = (props) => {
   const { height, width } = Dimensions.get("window");
-  const { index, initialDelay, deviceHeight } = props;
+  const { index, initialDelay, deviceHeight = height } = props;
 
   /** game level counter */
-  const { tapCounter, setTapCounter } = React.useContext(LevelContext);
+  const { loser, setLoser, tapCounter, setTapCounter } =
+    React.useContext(LevelContext);
 
   const delay = useSharedValue(initialDelay);
   const duration = useSharedValue(Configurations.INITIAL_DURATION);
@@ -57,51 +53,65 @@ const Tile: React.FC<Props> = (props) => {
     transform: [{ translateY: translateY1.value }],
   }));
 
-  /** game initializer function */
-  const action = () => {
+  /** Game Play */
+  const play = () => {
     translateY1.value = withDelay(
       delay.value,
       withRepeat(
-        withTiming(deviceHeight, {
-          duration: derivedDuration.value,
-          easing: Easing.linear,
-        }),
+        withTiming(
+          deviceHeight,
+          {
+            duration: derivedDuration.value,
+            easing: Easing.linear,
+          },
+          (finished) => {
+            if (finished) {
+              runOnJS(setLoser)(true);
+            }
+
+            return;
+          }
+        ),
         0,
         false
       )
     );
   };
 
+  /** Game Restart */
+  const restart = () => {
+    duration.value = Configurations.INITIAL_DURATION;
+    translateY1.value = Configurations.INITIAL_TRANSLATEY;
+    play();
+  };
+
   const tap = Gesture.Tap()
     .onBegin(() => {
       translateY1.value = Configurations.INITIAL_TRANSLATEY;
     })
-    .onFinalize(
-      (event: GestureStateChangeEvent<TapGestureHandlerEventPayload>) => {
-        runOnJS(setTapCounter)(tapCounter + 20);
-        translateY1.value = withDelay(
-          delay.value,
-          withRepeat(
-            withTiming(deviceHeight, {
-              duration: derivedDuration.value,
-              easing: Easing.linear,
-            }),
-            0,
-            false
-          )
-        );
-      }
-    );
+    .onFinalize(() => {
+      runOnJS(setTapCounter)(tapCounter + 10);
+      runOnJS(play)();
+    });
 
   /** TO BE REMOVED AND TURN IT TO INITIALIZER FUNCTION */
   React.useEffect(() => {
-    action();
+    play();
   }, []);
 
   React.useEffect(() => {
-    console.log("Tap counter: ", tapCounter);
-    console.log("Derived duration: ", derivedDuration.value);
-  }, [tapCounter]);
+    if (loser) {
+      cancelAnimation(translateY1);
+    } else {
+      restart();
+    }
+  }, [loser]);
+
+  React.useEffect(() => {
+    console.log("Tap counter: ", tapCounter / 10);
+    console.log("Speed in milliseconds: ", tapCounter);
+    console.log("Duration counter: ", derivedDuration.value);
+  }, [tapCounter, loser]);
 
   return (
     <View style={[styles.container]}>

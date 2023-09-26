@@ -1,21 +1,28 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
 import {
   View,
-  StyleSheet,
-  ActivityIndicator,
-  LayoutChangeEvent,
   Text,
   Modal,
+  StyleSheet,
   TouchableOpacity,
+  ActivityIndicator,
+  LayoutChangeEvent,
 } from "react-native";
 
-import Tile from "../components/shared/Tile";
 import AppLayout from "../layouts/AppLayout";
+import Tile from "../components/shared/Tile";
 import { LevelContext } from "../providers/Level";
+import { MainStackProps } from "../navigation/routes/Main";
 
 const Auditorium = () => {
   const [loserModal, setLoserModal] = React.useState(false);
   const [viewHeight, setViewHeight] = React.useState<number | null>(null);
+
+  /** start count down */
+  const [countDown, setCountDown] = React.useState(3);
 
   /** Game Progress Context */
   const { loser, setLoser, setTapCounter } = React.useContext(LevelContext);
@@ -25,36 +32,15 @@ const Auditorium = () => {
     setViewHeight(height);
   };
 
-  const LoserModal = () => {
+  React.useEffect(() => {
+    if (countDown === 0) return;
 
-    const restartGame = () => {
-      setLoser(false);
-      setTapCounter(0)
-      return
-    }
+    const countDownID = setInterval(() => {
+      setCountDown(countDown - 1);
+    }, 1000);
 
-    return (
-      <Modal visible={true} animationType="slide" transparent={true}>
-        <View style={[styles.modalContainer]}>
-          <View style={[styles.modalContent]}>
-            <Text style={[styles.largeText]}>You Lost!</Text>
-            <View style={[styles.buttons]}>
-              <TouchableOpacity style={[styles.button]}>
-                <Text style={[styles.buttonText, { color: "#ffffff" }]}>
-                  Quit!
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.button]} onPress={restartGame}>
-                <Text style={[styles.buttonText, { color: "#ffffff" }]}>
-                  Restart!
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </View>
-      </Modal>
-    );
-  };
+    return () => clearInterval(countDownID);
+  }, [countDown]);
 
   return (
     <AppLayout onLayout={viewLayout}>
@@ -65,13 +51,21 @@ const Auditorium = () => {
       ) : (
         <View style={[styles.container]}>
           {loser && <LoserModal />}
-          {tiles.map((tile, key) => (
-            <Tile
-              key={key}
-              index={tile.index}
-              initialDelay={tile.initialDelay}
-            />
-          ))}
+          {countDown !== 0 ? (
+            <View style={[styles.countDownContainer]}>
+              <Text style={[styles.extraLargeText]}>{countDown}</Text>
+            </View>
+          ) : (
+            <React.Fragment>
+              {tiles.map((tile, key) => (
+                <Tile
+                  key={key}
+                  index={tile.index}
+                  initialDelay={tile.initialDelay}
+                />
+              ))}
+            </React.Fragment>
+          )}
         </View>
       )}
     </AppLayout>
@@ -132,6 +126,11 @@ const styles = StyleSheet.create({
     color: "#000000",
     fontWeight: "800",
   },
+  extraLargeText: {
+    opacity: 0.3,
+    fontSize: 120,
+    fontWeight: "bold",
+  },
   buttonText: {
     fontSize: 15,
     fontWeight: "600",
@@ -141,6 +140,51 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: "black",
   },
+  countDownContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 export default Auditorium;
+
+const LoserModal = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<MainStackProps>>();
+
+  const { loser, setLoser, setTapCounter } = React.useContext(LevelContext);
+
+  const restart = () => {
+    setLoser(false);
+    setTapCounter(0);
+    return;
+  };
+
+  const quit = () => {
+    setLoser(false);
+    setTapCounter(0);
+    navigation.navigate("Welcome");
+  };
+
+  return (
+    <Modal visible={true} animationType="slide" transparent={true}>
+      <View style={[styles.modalContainer]}>
+        <View style={[styles.modalContent]}>
+          <Text style={[styles.largeText]}>You Lost!</Text>
+          <View style={[styles.buttons]}>
+            <TouchableOpacity style={[styles.button]} onPress={quit}>
+              <Text style={[styles.buttonText, { color: "#ffffff" }]}>
+                Quit
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.button]} onPress={restart}>
+              <Text style={[styles.buttonText, { color: "#ffffff" }]}>
+                Restart
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    </Modal>
+  );
+};

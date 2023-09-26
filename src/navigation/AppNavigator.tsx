@@ -1,7 +1,7 @@
-import Home from "../screens/Auditorium"
+import MainStack from "./routes/Main";
 
 const AppNavigator = () => {
-    return <Home/>
-}
+  return <MainStack />;
+};
 
 export default AppNavigator;

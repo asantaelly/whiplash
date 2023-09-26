@@ -1,11 +1,5 @@
 import React from "react";
-import { LayoutChangeEvent, StyleSheet, View } from "react-native";
-import {
-  Gesture,
-  GestureDetector,
-  GestureStateChangeEvent,
-  TapGestureHandlerEventPayload,
-} from "react-native-gesture-handler";
+import { Dimensions, StyleSheet, View } from "react-native";
 
 import Animated, {
   Easing,
@@ -18,39 +12,52 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 
+import {
+  Gesture,
+  GestureDetector,
+  GestureStateChangeEvent,
+  TapGestureHandlerEventPayload,
+} from "react-native-gesture-handler";
+
+/** local imports */
+import { LevelContext } from "../../Providers/Level";
+
 type Props = {
   index: number;
   initialDelay: number;
   deviceHeight: number;
 };
 
+enum Configurations {
+  FINAL_DURATION = 800,
+  INITIAL_DURATION = 4000,
+  INITIAL_TRANSLATEY = -300,
+}
+
 const Tile: React.FC<Props> = (props) => {
+  const { height, width } = Dimensions.get("window");
   const { index, initialDelay, deviceHeight } = props;
 
-  const [tapCount, setTapCount] = React.useState(0);
-
-  const initialTransalteY = -300;
-  const translateY1 = useSharedValue(initialTransalteY);
-
-  const initialDuration = 4000;
-  const duration = useSharedValue(initialDuration);
-
-  const finalDuration = 800;
-
-  const derivedDuration = useDerivedValue(() => {
-    if (tapCount >= 3200) {
-      return (duration.value = finalDuration);
-    } else {
-      return duration.value - tapCount;
-    }
-  });
+  /** game level counter */
+  const { tapCounter, setTapCounter } = React.useContext(LevelContext);
 
   const delay = useSharedValue(initialDelay);
+  const duration = useSharedValue(Configurations.INITIAL_DURATION);
+  const translateY1 = useSharedValue(Configurations.INITIAL_TRANSLATEY);
+
+  const derivedDuration = useDerivedValue(() => {
+    if (tapCounter >= 3200) {
+      return (duration.value = Configurations.FINAL_DURATION);
+    } else {
+      return duration.value - tapCounter;
+    }
+  });
 
   const animatedTileStyle = useAnimatedStyle(() => ({
     transform: [{ translateY: translateY1.value }],
   }));
 
+  /** game initializer function */
   const action = () => {
     translateY1.value = withDelay(
       delay.value,
@@ -65,17 +72,13 @@ const Tile: React.FC<Props> = (props) => {
     );
   };
 
-  const tilePath = (event: LayoutChangeEvent) => {
-    const { width, height, x, y } = event.nativeEvent.layout;
-  };
-
   const tap = Gesture.Tap()
     .onBegin(() => {
-      translateY1.value = initialTransalteY;
+      translateY1.value = Configurations.INITIAL_TRANSLATEY;
     })
     .onFinalize(
       (event: GestureStateChangeEvent<TapGestureHandlerEventPayload>) => {
-        runOnJS(setTapCount)(tapCount + 100);
+        runOnJS(setTapCounter)(tapCounter + 20);
         translateY1.value = withDelay(
           delay.value,
           withRepeat(
@@ -90,25 +93,20 @@ const Tile: React.FC<Props> = (props) => {
       }
     );
 
+  /** TO BE REMOVED AND TURN IT TO INITIALIZER FUNCTION */
   React.useEffect(() => {
     action();
-    console.log("On mount only");
   }, []);
 
   React.useEffect(() => {
-    console.log("Tile No: ", index);
-    console.log("Tap Count: ", tapCount);
-    console.log("Delay duration", delay.value);
+    console.log("Tap counter: ", tapCounter);
     console.log("Derived duration: ", derivedDuration.value);
-  }, [tapCount]);
+  }, [tapCounter]);
 
   return (
     <View style={[styles.container]}>
       <GestureDetector gesture={tap}>
-        <Animated.View
-          style={[styles.tile, animatedTileStyle]}
-          onLayout={tilePath}
-        ></Animated.View>
+        <Animated.View style={[styles.tile, animatedTileStyle]}></Animated.View>
       </GestureDetector>
     </View>
   );

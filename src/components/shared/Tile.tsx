@@ -107,11 +107,11 @@ const Tile: React.FC<Props> = (props) => {
     }
   }, [loser]);
 
-  React.useEffect(() => {
-    console.log("Tap counter: ", tapCounter / 10);
-    console.log("Speed in milliseconds: ", tapCounter);
-    console.log("Duration counter: ", derivedDuration.value);
-  }, [tapCounter, loser]);
+//   React.useEffect(() => {
+//     console.log("Tap counter: ", tapCounter / 10);
+//     console.log("Speed in milliseconds: ", tapCounter);
+//     console.log("Duration counter: ", derivedDuration.value);
+//   }, [tapCounter, loser]);
 
   return (
     <View style={[styles.container]}>

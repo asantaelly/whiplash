@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 /** local imports */
 import Welcome from "../../screens/Welcome";
-import Auditorium from "../../screens/Auditorium";
+import Auditorium from "../../screens/playground/Auditorium";
 
 export type MainStackProps = {
   Welcome: undefined;

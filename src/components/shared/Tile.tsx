@@ -26,7 +26,7 @@ type Props = {
 enum Configurations {
   FINAL_DURATION = 800,
   INITIAL_DURATION = 4000,
-  INITIAL_TRANSLATEY = -300,
+  INITIAL_TRANSLATEY = -500,
 }
 
 const Tile: React.FC<Props> = (props) => {

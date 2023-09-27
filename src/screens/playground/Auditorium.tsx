@@ -48,9 +48,9 @@ const Auditorium = () => {
         <View style={[styles.container]}>
           {loser && <LoserModal />}
           {countDown !== 0 ? (
-            <View style={[styles.countDownContainer]}>
+            // <View style={[styles.countDownContainer]}>
               <Text style={[styles.extraLargeText]}>{countDown}</Text>
-            </View>
+            // {/* </View> */}
           ) : (
             <React.Fragment>
               {tiles.map((tile, key) => (

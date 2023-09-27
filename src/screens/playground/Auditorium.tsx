@@ -20,7 +20,7 @@ const Auditorium = () => {
   /** start count down */
   const [countDown, setCountDown] = React.useState(3);
 
-  /** Game Progress Context */
+  /** game Progress Context */
   const { loser, setLoser, setTapCounter } = React.useContext(LevelContext);
 
   const viewLayout = (event: LayoutChangeEvent) => {

@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
     fontWeight: "700",
+    fontFamily: "Orbitron-Medium"
   },
   scoreBoard: {
     gap: 5,

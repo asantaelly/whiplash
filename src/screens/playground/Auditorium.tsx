@@ -9,9 +9,12 @@ import {
 } from "react-native";
 
 import AppLayout from "../../layouts/AppLayout";
-import Tile from "../../components/shared/Tile";
+import Tile from "./Tile";
 import { LevelContext } from "../../providers/Level";
 import LoserModal from "../../components/libs/modals/LoserModal";
+import tiles from "./tiles";
+import AppText from "../../components/libs/text/AppText";
+import { font } from "../../themes/fonts";
 
 const Auditorium = () => {
   // const [loserModal, setLoserModal] = React.useState(false);
@@ -50,7 +53,9 @@ const Auditorium = () => {
           {loser && <LoserModal />}
           {countDown !== 0 ? (
             <View style={[styles.countDownContainer]}>
-              <Text style={[styles.extraLargeText]}>{countDown}</Text>
+              <AppText style={[font.extremeLarge_bold, styles.countDown]}>
+                {countDown}
+              </AppText>
             </View>
           ) : (
             <React.Fragment>
@@ -69,25 +74,6 @@ const Auditorium = () => {
   );
 };
 
-const tiles = [
-  {
-    index: 1,
-    initialDelay: 1800,
-  },
-  {
-    index: 2,
-    initialDelay: 2000,
-  },
-  {
-    index: 3,
-    initialDelay: 2200,
-  },
-  {
-    index: 4,
-    initialDelay: 3000,
-  },
-];
-
 const styles = StyleSheet.create({
   container: {
     gap: 5,
@@ -105,10 +91,8 @@ const styles = StyleSheet.create({
     color: "#000000",
     fontWeight: "800",
   },
-  extraLargeText: {
+  countDown: {
     opacity: 0.3,
-    fontSize: 120,
-    fontWeight: "bold",
   },
   buttonText: {
     fontSize: 15,

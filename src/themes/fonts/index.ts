@@ -1,7 +1,11 @@
 import { StyleSheet } from "react-native";
-import { EXTRA_LARGE, LARGE, MEDIUM, BASE, SMALL } from "./size";
+import { EXTRA_LARGE, LARGE, MEDIUM, BASE, SMALL, EXTREME_LARGE } from "./size";
 
 export const font = StyleSheet.create({
+  extremeLarge_bold: {
+    fontSize: EXTREME_LARGE,
+    fontFamily: "Orbitron-Black",
+  },
   xxLarge_bold: {
     fontSize: EXTRA_LARGE,
     fontFamily: "Orbitron-Bold",

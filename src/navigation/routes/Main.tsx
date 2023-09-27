@@ -15,7 +15,9 @@ const AppStack = createNativeStackNavigator<MainStackProps>();
 
 const MainStack = () => {
   return (
-    <AppStack.Navigator initialRouteName="Welcome">
+    <AppStack.Navigator initialRouteName="Welcome" screenOptions={{
+      headerShown: true
+    }}>
       <AppStack.Screen
         name="Welcome"
         component={Welcome}

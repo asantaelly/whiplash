@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import PressableIcon from "../../libs/icons/PressableIcon";
@@ -20,7 +19,7 @@ const Header: React.FC<Props> = (props) => {
     <SafeAreaView style={[styles.container]} edges={["top", "left", "right"]}>
       <View style={[styles.header, styles.shadow]}>
         <View style={[styles.scoreBoard]}>
-          <Text style={[{ fontWeight: "600" }]}>Champion: 12000</Text>
+          <Text style={[{ fontWeight: "600" }]}>Champion: 223212</Text>
           <Text style={[{ fontWeight: "600" }]}>Points: {point}</Text>
         </View>
         <View style={[styles.avatarCircular]}>

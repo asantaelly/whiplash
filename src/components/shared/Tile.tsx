@@ -99,6 +99,7 @@ const Tile: React.FC<Props> = (props) => {
     play();
   }, []);
 
+  /** check for loser */
   React.useEffect(() => {
     if (loser) {
       cancelAnimation(translateY1);

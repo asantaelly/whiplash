@@ -1,9 +1,9 @@
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import PressableIcon from "../../libs/icons/PressableIcon";
-import React, { useContext } from "react";
 import { LevelContext } from "../../../providers/Level";
+import PressableIcon from "../../libs/icons/PressableIcon";
 
 type Props = {
   route: any;
@@ -19,8 +19,8 @@ const Header: React.FC<Props> = (props) => {
     <SafeAreaView style={[styles.container]} edges={["top", "left", "right"]}>
       <View style={[styles.header, styles.shadow]}>
         <View style={[styles.scoreBoard]}>
-          <Text style={[{ fontWeight: "600" }]}>Champion: 223212</Text>
-          <Text style={[{ fontWeight: "600" }]}>Points: {point}</Text>
+          <Text style={[styles.text]}>{`Champion: 21342`}</Text>
+          <Text style={[styles.text]}>{`Points: ${point}`}</Text>
         </View>
         <View style={[styles.avatarCircular]}>
           <PressableIcon
@@ -39,43 +39,47 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     flexDirection: "row",
-    // backgroundColor: "#FFF"
+    backgroundColor: "transparent",
+  },
+  text: {
+    fontSize: 16,
+    lineHeight: 20,
+    fontWeight: "700",
   },
   scoreBoard: {
+    gap: 5,
     flex: 1,
     flexDirection: "column",
-    gap: 5,
   },
   header: {
     flex: 1,
     gap: 10,
+    borderRadius: 50,
     paddingVertical: 15,
-    paddingHorizontal: 20,
+    marginHorizontal: 18,
     alignItems: "center",
     flexDirection: "row",
+    paddingHorizontal: 30,
     justifyContent: "space-between",
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
-    marginHorizontal: 20,
-    // opacity: 0.7,
-    borderRadius: 50,
-    // borderWidth: 2,
+    backgroundColor: "rgba(186, 205, 222, 0.6)",
   },
   avatarCircular: {
     padding: 10,
     borderWidth: 2,
     borderRadius: 50,
     borderColor: "#000000",
-    // backgroundColor: "#FFFFFF",
+    backgroundColor: "transparent",
   },
   shadow: {
     shadowOffset: {
-      width: 5,
-      height: 5,
+      width: 10,
+      height: 10,
     },
-    shadowOpacity: 0.7,
+    elevation: 10,
+    shadowRadius: 12,
+    shadowOpacity: 0.9,
     shadowColor: "#000000",
-    shadowRadius: 30,
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    backgroundColor: "rgba(186, 205, 222, 0.6)",
   },
 });
 

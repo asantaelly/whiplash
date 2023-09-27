@@ -1,7 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import main from "../../../styles/main";
+import { font } from "../../../themes/fonts";
+import AppText from "../../libs/text/AppText";
 import { LevelContext } from "../../../providers/Level";
 import PressableIcon from "../../libs/icons/PressableIcon";
 
@@ -17,10 +20,10 @@ const Header: React.FC<Props> = (props) => {
 
   return (
     <SafeAreaView style={[styles.container]} edges={["top", "left", "right"]}>
-      <View style={[styles.header, styles.shadow]}>
+      <View style={[styles.header, main.shadow]}>
         <View style={[styles.scoreBoard]}>
-          <Text style={[styles.text]}>{`Champion: 21342`}</Text>
-          <Text style={[styles.text]}>{`Points: ${point}`}</Text>
+          <AppText style={[font.base_semiBold]}>{`Champion: 21342`}</AppText>
+          <AppText style={[font.base_semiBold]}>{`Points: ${point}`}</AppText>
         </View>
         <View style={[styles.avatarCircular]}>
           <PressableIcon
@@ -45,7 +48,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
     fontWeight: "700",
-    fontFamily: "Orbitron-Medium"
+    fontFamily: "Orbitron-Medium",
   },
   scoreBoard: {
     gap: 5,

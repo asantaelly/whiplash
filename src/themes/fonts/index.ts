@@ -1,8 +1,65 @@
-export const fonts = {
-  "Orbitron-Bold": require("../../../assets/fonts/Orbitron/Orbitron-Bold.ttf"),
-  "Orbitron-Black": require("../../../assets/fonts/Orbitron/Orbitron-Black.ttf"),
-  "Orbitron-Medium": require("../../../assets/fonts/Orbitron/Orbitron-Medium.ttf"),
-  "Orbitron-Regular": require("../../../assets/fonts/Orbitron/Orbitron-Regular.ttf"),
-  "Orbitron-SemiBold": require("../../../assets/fonts/Orbitron/Orbitron-SemiBold.ttf"),
-  "Orbitron-ExtraBold": require("../../../assets/fonts/Orbitron/Orbitron-ExtraBold.ttf"),
-};
+import { StyleSheet } from "react-native";
+import { EXTRA_LARGE, LARGE, MEDIUM, BASE, SMALL } from "./size";
+
+export const font = StyleSheet.create({
+  xxLarge_bold: {
+    fontSize: EXTRA_LARGE,
+    fontFamily: "Orbitron-Bold",
+  },
+  xxLarge_semiBold: {
+    fontSize: EXTRA_LARGE,
+    fontFamily: "Orbitron-SemiBold",
+  },
+  xxLarge_regular: {
+    fontSize: EXTRA_LARGE,
+    fontFamily: "Orbitron-Regular",
+  },
+  large_bold: {
+    fontSize: LARGE,
+    fontFamily: "Orbitron-Bold",
+  },
+  large_semiBold: {
+    fontSize: LARGE,
+    fontFamily: "Orbitron-SemiBold",
+  },
+  large_regular: {
+    fontSize: LARGE,
+    fontFamily: "Orbitron-Regular",
+  },
+  medium_bold: {
+    fontSize: MEDIUM,
+    fontFamily: "Orbitron-Bold",
+  },
+  medium_semiBold: {
+    fontSize: MEDIUM,
+    fontFamily: "Orbitron-SemiBold",
+  },
+  medium_regular: {
+    fontSize: MEDIUM,
+    fontFamily: "Orbitron-Regular",
+  },
+  base_bold: {
+    fontSize: BASE,
+    fontFamily: "Orbitron-Bold",
+  },
+  base_semiBold: {
+    fontSize: BASE,
+    fontFamily: "Orbitron-SemiBold",
+  },
+  base_regular: {
+    fontSize: BASE,
+    fontFamily: "Orbitron-Regular",
+  },
+  small_bold: {
+    fontSize: SMALL,
+    fontFamily: "Orbitron-Bold",
+  },
+  small_semiBold: {
+    fontSize: SMALL,
+    fontFamily: "Orbitron-SemiBold",
+  },
+  small_regular: {
+    fontSize: SMALL,
+    fontFamily: "Orbitron-Regular",
+  },
+});

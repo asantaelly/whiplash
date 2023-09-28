@@ -45,6 +45,7 @@ const Auditorium = () => {
                   <Tile
                     key={key}
                     index={tile.index}
+                    chord={tile.chord}
                     initialDelay={tile.initialDelay}
                   />
                 ))}

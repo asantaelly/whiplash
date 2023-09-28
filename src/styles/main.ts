@@ -7,7 +7,7 @@ const main = StyleSheet.create({
       height: 10,
     },
     elevation: 10,
-    shadowRadius: 12,
+    shadowRadius: 15,
     shadowOpacity: 0.9,
     shadowColor: "#000000",
     backgroundColor: "rgba(186, 205, 222, 0.6)",

@@ -15,10 +15,12 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { LevelContext } from "../../providers/Level";
+import { AVPlaybackSource, Audio } from "expo-av";
 
 type Props = {
   index: number;
   initialDelay: number;
+  chord?: AVPlaybackSource;
 };
 
 enum Configurations {
@@ -31,9 +33,42 @@ const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
 
 const Tile: React.FC<Props> = (props) => {
-  const { index, initialDelay } = props;
+  const { index, chord, initialDelay } = props;
+  const [sound, setSound] = React.useState<Audio.Sound>(null);
   const { play, loser, setLoser, tapCounter, setTapCounter } =
     React.useContext(LevelContext);
+
+  /**
+   *
+   *  Play Tile Sound
+   *
+   */
+  const playSound = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(chord);
+      setSound(sound);
+
+      await sound.playAsync();
+    } catch (error) {
+      console.log("Tile Sound Error: ", error);
+    }
+  };
+
+  /**
+   *
+   *  Stop Tile Sound
+   *
+   */
+  const stopSound = async () => {
+    try {
+      if (sound) {
+        sound.unloadAsync();
+        setSound(null);
+      }
+    } catch (error) {
+      console.log("Tile Sound Error: ", error);
+    }
+  };
 
   const delay = useSharedValue(initialDelay);
   const duration = useSharedValue(Configurations.INITIAL_DURATION);
@@ -98,9 +133,11 @@ const Tile: React.FC<Props> = (props) => {
    */
   const tap = Gesture.Tap()
     .onBegin(() => {
+      runOnJS(playSound)();
       translateY1.value = Configurations.INITIAL_TRANSLATEY;
     })
     .onFinalize(() => {
+      // runOnJS(stopSound)();
       runOnJS(setTapCounter)(tapCounter + 10);
       runOnJS(playGame)();
     });

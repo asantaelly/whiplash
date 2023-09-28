@@ -23,7 +23,7 @@ const Welcome = () => {
     <AppLayout>
       <View style={[styles.container]}>
         <View style={[styles.upperContainer]}>
-          <AppText style={[font.large_bold]}>TileRhythm</AppText>
+          <AppText style={[font.large_bold]}>WhipLash</AppText>
         </View>
         <View style={[styles.bottomContainer]}>
           <TouchableOpacity

@@ -25,8 +25,8 @@ const Header: React.FC<Props> = (props) => {
     <SafeAreaView style={[styles.container]} edges={["top", "left", "right"]}>
       <View style={[styles.header, main.shadow]}>
         <View style={[styles.scoreBoard]}>
-          <AppText style={[font.base_semiBold]}>{`Champion: 21342`}</AppText>
-          <AppText style={[font.base_semiBold]}>{`Points: ${point}`}</AppText>
+          <AppText style={[font.small_bold]}>{`Champion: 21342`}</AppText>
+          <AppText style={[font.small_bold]}>{`Points: ${point}`}</AppText>
         </View>
         <View style={[styles.avatarCircular]}>
           <PressableIcon

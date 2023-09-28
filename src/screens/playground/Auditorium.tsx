@@ -39,18 +39,14 @@ const Auditorium = () => {
           </View>
         ) : (
           <React.Fragment>
-            {play && (
-              <React.Fragment>
-                {tiles.map((tile, key) => (
-                  <Tile
-                    key={key}
-                    index={tile.index}
-                    chord={tile.chord}
-                    initialDelay={tile.initialDelay}
-                  />
-                ))}
-              </React.Fragment>
-            )}
+            {tiles.map((tile, key) => (
+              <Tile
+                key={key}
+                index={tile.index}
+                chord={tile.chord}
+                initialDelay={tile.initialDelay}
+              />
+            ))}
           </React.Fragment>
         )}
       </View>

@@ -1,4 +1,5 @@
 import React from "react";
+import { AVPlaybackSource, Audio } from "expo-av";
 import { Dimensions, StyleSheet, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
@@ -15,7 +16,6 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { LevelContext } from "../../providers/Level";
-import { AVPlaybackSource, Audio } from "expo-av";
 
 type Props = {
   index: number;

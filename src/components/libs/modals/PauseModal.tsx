@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { Modal, StyleSheet, TouchableOpacity, View } from "react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 /** local imports */
 import AppText from "../text/AppText";
@@ -9,7 +9,7 @@ import { font } from "../../../themes/fonts";
 import { LevelContext } from "../../../providers/Level";
 import { MainStackProps } from "../../../navigation/routes/Main";
 
-const LoserModal = () => {
+const PauseModal = () => {
   const navigation = useNavigation<NativeStackNavigationProp<MainStackProps>>();
 
   const { setLoser, setTapCounter } = React.useContext(LevelContext);
@@ -30,16 +30,22 @@ const LoserModal = () => {
     <Modal visible={true} animationType="slide" transparent={true}>
       <View style={[styles.modalContainer]}>
         <View style={[styles.modalContent]}>
-          <AppText style={[font.xxLarge_bold]}>You Lost!</AppText>
+          <AppText style={[font.xxLarge_bold]}>Game Paused!</AppText>
           <View style={[styles.buttons]}>
-            <TouchableOpacity style={[styles.button]} onPress={quit}>
+            <TouchableOpacity
+              style={[styles.button]}
+              onPress={() => console.log("Quit Game")}
+            >
               <AppText style={[font.medium_bold, { color: "#ffffff" }]}>
                 Quit
               </AppText>
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button]} onPress={restart}>
+            <TouchableOpacity
+              style={[styles.button]}
+              onPress={() => console.log("Resume Game")}
+            >
               <AppText style={[font.medium_bold, { color: "#ffffff" }]}>
-                Restart
+                Resume
               </AppText>
             </TouchableOpacity>
           </View>
@@ -60,7 +66,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
     gap: 40,
@@ -68,7 +74,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     flexDirection: "column",
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
   },
   buttons: {
     gap: 20,
@@ -87,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoserModal;
+export default PauseModal;

@@ -42,6 +42,12 @@ const Auditorium = () => {
     return () => clearInterval(countDownID);
   }, [countDown]);
 
+
+  /** check the state to play the game is set */
+  // if(play) {
+  //   return p
+  // }
+
   return (
     <AppLayout onLayout={viewLayout}>
       {viewHeight === null ? (

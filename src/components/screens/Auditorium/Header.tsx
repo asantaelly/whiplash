@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+/** local imports */
 import main from "../../../styles/main";
 import { font } from "../../../themes/fonts";
 import AppText from "../../libs/text/AppText";
@@ -14,9 +15,11 @@ type Props = {
 };
 
 const Header: React.FC<Props> = (props) => {
-  const { tapCounter } = React.useContext(LevelContext);
+  const { play, setPlay, tapCounter } = React.useContext(LevelContext);
 
   const point = tapCounter / 10;
+  const pauseICON = play ? "pause" : "play";
+  const pauseAction = () => setPlay((previous) => !previous);
 
   return (
     <SafeAreaView style={[styles.container]} edges={["top", "left", "right"]}>
@@ -27,10 +30,10 @@ const Header: React.FC<Props> = (props) => {
         </View>
         <View style={[styles.avatarCircular]}>
           <PressableIcon
-            name="pause"
+            name={pauseICON}
             size={20}
             color="black"
-            handleClick={() => console.log("Clicked")}
+            handleClick={pauseAction}
           />
         </View>
       </View>

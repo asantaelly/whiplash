@@ -12,16 +12,12 @@ import { MainStackProps } from "../../../navigation/routes/Main";
 const PauseModal = () => {
   const navigation = useNavigation<NativeStackNavigationProp<MainStackProps>>();
 
-  const { setLoser, setTapCounter } = React.useContext(LevelContext);
+  const { setPlay, setTapCounter } = React.useContext(LevelContext);
 
-  const restart = () => {
-    setLoser(false);
-    setTapCounter(0);
-    return;
-  };
+  const resume = () => setPlay(true);
 
   const quit = () => {
-    setLoser(false);
+    setPlay(false);
     setTapCounter(0);
     navigation.navigate("Welcome");
   };
@@ -32,18 +28,12 @@ const PauseModal = () => {
         <View style={[styles.modalContent]}>
           <AppText style={[font.xxLarge_bold]}>Game Paused!</AppText>
           <View style={[styles.buttons]}>
-            <TouchableOpacity
-              style={[styles.button]}
-              onPress={() => console.log("Quit Game")}
-            >
+            <TouchableOpacity style={[styles.button]} onPress={quit}>
               <AppText style={[font.medium_bold, { color: "#ffffff" }]}>
                 Quit
               </AppText>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.button]}
-              onPress={() => console.log("Resume Game")}
-            >
+            <TouchableOpacity style={[styles.button]} onPress={resume}>
               <AppText style={[font.medium_bold, { color: "#ffffff" }]}>
                 Resume
               </AppText>

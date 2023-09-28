@@ -1,37 +1,21 @@
 import React from "react";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  ActivityIndicator,
-  LayoutChangeEvent,
-} from "react-native";
-
-import AppLayout from "../../layouts/AppLayout";
+/** local imports */
 import Tile from "./Tile";
-import { LevelContext } from "../../providers/Level";
-import LoserModal from "../../components/libs/modals/LoserModal";
 import tiles from "./tiles";
-import AppText from "../../components/libs/text/AppText";
 import { font } from "../../themes/fonts";
+import AppLayout from "../../layouts/AppLayout";
+import { LevelContext } from "../../providers/Level";
+import AppText from "../../components/libs/text/AppText";
+import LoserModal from "../../components/libs/modals/LoserModal";
+import PauseModal from "../../components/libs/modals/PauseModal";
 
 const Auditorium = () => {
-  // const [loserModal, setLoserModal] = React.useState(false);
-  const [viewHeight, setViewHeight] = React.useState<number | null>(null);
-
-  /** start count down */
   const [countDown, setCountDown] = React.useState(3);
+  const { play, loser } = React.useContext(LevelContext);
 
-  /** game Progress Context */
-  const { loser, setLoser, setTapCounter } = React.useContext(LevelContext);
-
-  const viewLayout = (event: LayoutChangeEvent) => {
-    const { width, height, x, y } = event.nativeEvent.layout;
-    setViewHeight(height);
-  };
-
-  /** count down */
+  /** Count-Down Timer */
   React.useEffect(() => {
     if (countDown === 0) return;
 
@@ -42,41 +26,42 @@ const Auditorium = () => {
     return () => clearInterval(countDownID);
   }, [countDown]);
 
-
-  /** check the state to play the game is set */
-  // if(play) {
-  //   return p
-  // }
-
   return (
-    <AppLayout onLayout={viewLayout}>
-      {viewHeight === null ? (
-        <View style={[styles.indicatorContainer]}>
-          <ActivityIndicator size={"large"} color={"#000000"} />
-        </View>
-      ) : (
-        <View style={[styles.container]}>
-          {loser && <LoserModal />}
-          {countDown !== 0 ? (
-            <View style={[styles.countDownContainer]}>
-              <AppText style={[font.extremeLarge_bold, styles.countDown]}>
-                {countDown}
-              </AppText>
-            </View>
-          ) : (
-            <React.Fragment>
-              {tiles.map((tile, key) => (
-                <Tile
-                  key={key}
-                  index={tile.index}
-                  initialDelay={tile.initialDelay}
-                />
-              ))}
-            </React.Fragment>
-          )}
-        </View>
-      )}
+    <AppLayout>
+      <View style={[styles.container]}>
+        {loser && <LoserModal />}
+        {!play && <PauseModal />}
+        {countDown !== 0 && play ? (
+          <View style={[styles.countDownContainer]}>
+            <AppText style={[font.extremeLarge_bold, styles.countDown]}>
+              {countDown}
+            </AppText>
+          </View>
+        ) : (
+          <React.Fragment>
+            {play && (
+              <React.Fragment>
+                {tiles.map((tile, key) => (
+                  <Tile
+                    key={key}
+                    index={tile.index}
+                    initialDelay={tile.initialDelay}
+                  />
+                ))}
+              </React.Fragment>
+            )}
+          </React.Fragment>
+        )}
+      </View>
     </AppLayout>
+  );
+};
+
+const AppIndicator = () => {
+  return (
+    <View style={[styles.indicatorContainer]}>
+      <ActivityIndicator size={"large"} color={"#000000"} />
+    </View>
   );
 };
 
@@ -86,28 +71,15 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     paddingHorizontal: 20,
+    backgroundColor: "#FFFFFF",
   },
   indicatorContainer: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
-  largeText: {
-    fontSize: 28,
-    color: "#000000",
-    fontWeight: "800",
-  },
   countDown: {
     opacity: 0.3,
-  },
-  buttonText: {
-    fontSize: 15,
-    fontWeight: "600",
-  },
-  button: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    backgroundColor: "black",
   },
   countDownContainer: {
     flex: 1,

@@ -11,14 +11,12 @@ import AppText from "../components/libs/text/AppText";
 import { MainStackProps } from "../navigation/routes/Main";
 
 const Welcome = () => {
+  const { setPlay } = React.useContext(LevelContext);
   const navigation = useNavigation<NativeStackNavigationProp<MainStackProps>>();
 
-  /** context state */
-  const {play, setPlay} = React.useContext(LevelContext);
-
   const startGame = () => {
-    navigation.navigate("Auditorium")
-    setPlay(true)
+    navigation.navigate("Auditorium");
+    setPlay(true);
   };
 
   return (
@@ -28,7 +26,10 @@ const Welcome = () => {
           <AppText style={[font.large_bold]}>TileRhythm</AppText>
         </View>
         <View style={[styles.bottomContainer]}>
-          <TouchableOpacity style={[styles.button, main.shadow]} onPress={startGame}>
+          <TouchableOpacity
+            style={[styles.button, main.shadow]}
+            onPress={startGame}
+          >
             <AppText style={[font.medium_bold, styles.buttonText]}>
               Start Game
             </AppText>

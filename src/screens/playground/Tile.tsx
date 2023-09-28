@@ -1,5 +1,5 @@
 import React from "react";
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 import Animated, {
@@ -14,13 +14,11 @@ import Animated, {
   cancelAnimation,
 } from "react-native-reanimated";
 
-/** local imports */
 import { LevelContext } from "../../providers/Level";
 
 type Props = {
   index: number;
   initialDelay: number;
-  deviceHeight?: number;
 };
 
 enum Configurations {
@@ -29,12 +27,12 @@ enum Configurations {
   INITIAL_TRANSLATEY = -500,
 }
 
-const Tile: React.FC<Props> = (props) => {
-  const { height, width } = Dimensions.get("window");
-  const { index, initialDelay, deviceHeight = height } = props;
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
-  /** game level counter */
-  const { loser, setLoser, tapCounter, setTapCounter } =
+const Tile: React.FC<Props> = (props) => {
+  const { index, initialDelay } = props;
+  const { play, loser, setLoser, tapCounter, setTapCounter } =
     React.useContext(LevelContext);
 
   const delay = useSharedValue(initialDelay);
@@ -53,13 +51,18 @@ const Tile: React.FC<Props> = (props) => {
     transform: [{ translateY: translateY1.value }],
   }));
 
-  /** Game Play */
-  const play = () => {
+  /**
+   *
+   * Play the Game function
+   *
+   *
+   */
+  const playGame = () => {
     translateY1.value = withDelay(
       delay.value,
       withRepeat(
         withTiming(
-          deviceHeight,
+          screenHeight,
           {
             duration: derivedDuration.value,
             easing: Easing.linear,
@@ -68,7 +71,6 @@ const Tile: React.FC<Props> = (props) => {
             if (finished) {
               runOnJS(setLoser)(true);
             }
-
             return;
           }
         ),
@@ -78,28 +80,49 @@ const Tile: React.FC<Props> = (props) => {
     );
   };
 
-  /** Game Restart */
+  /**
+   *
+   *  Restart the Game function
+   *
+   */
   const restart = () => {
     duration.value = Configurations.INITIAL_DURATION;
     translateY1.value = Configurations.INITIAL_TRANSLATEY;
-    play();
+    playGame();
   };
 
+  /**
+   *
+   *  Tap Gesture Handler
+   *
+   */
   const tap = Gesture.Tap()
     .onBegin(() => {
       translateY1.value = Configurations.INITIAL_TRANSLATEY;
     })
     .onFinalize(() => {
       runOnJS(setTapCounter)(tapCounter + 10);
-      runOnJS(play)();
+      runOnJS(playGame)();
     });
 
-  /** TO BE REMOVED AND TURN IT TO INITIALIZER FUNCTION */
+  /**
+   *
+   *  Action to start the game starts here
+   *
+   */
   React.useEffect(() => {
-    play();
-  }, []);
+    if (play) {
+      playGame();
+    } else {
+      cancelAnimation(translateY1);
+    }
+  }, [play]);
 
-  /** check for loser */
+  /**
+   *
+   * Action to check loser!
+   *
+   */
   React.useEffect(() => {
     if (loser) {
       cancelAnimation(translateY1);
@@ -107,12 +130,6 @@ const Tile: React.FC<Props> = (props) => {
       restart();
     }
   }, [loser]);
-
-//   React.useEffect(() => {
-//     console.log("Tap counter: ", tapCounter / 10);
-//     console.log("Speed in milliseconds: ", tapCounter);
-//     console.log("Duration counter: ", derivedDuration.value);
-//   }, [tapCounter, loser]);
 
   return (
     <View style={[styles.container]}>

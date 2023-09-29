@@ -3,16 +3,13 @@ import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 /** local imports */
-import main from "../../../styles/main";
-import { font } from "../../../themes/fonts";
-import AppText from "../../libs/text/AppText";
-import { LevelContext } from "../../../providers/Level";
-import PressableIcon from "../../libs/icons/PressableIcon";
+import main from "../../styles/main";
+import { font } from "../../themes/fonts";
+import AppText from "../libs/text/AppText";
+import { LevelContext } from "../../providers/Level";
+import PressableIcon from "../libs/icons/PressableIcon";
 
-type Props = {
-  route: any;
-  navigation: any;
-};
+type Props = {};
 
 const Header: React.FC<Props> = (props) => {
   const { play, setPlay, tapCounter } = React.useContext(LevelContext);

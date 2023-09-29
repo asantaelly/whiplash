@@ -1,13 +1,13 @@
 import React from "react";
-import { View, StyleSheet, ActivityIndicator } from "react-native";
+import { View, StyleSheet } from "react-native";
 
-/** local imports */
 import Tile from "./Tile";
 import tiles from "./tiles";
 import { font } from "../../themes/fonts";
 import AppLayout from "../../layouts/AppLayout";
 import { LevelContext } from "../../providers/Level";
 import AppText from "../../components/libs/text/AppText";
+import ScreenHeader from "../../components/screens/Header";
 import LoserModal from "../../components/libs/modals/LoserModal";
 import PauseModal from "../../components/libs/modals/PauseModal";
 
@@ -27,38 +27,31 @@ const Auditorium = () => {
   }, [countDown]);
 
   return (
-    <AppLayout>
-      <View style={[styles.container]}>
-        {loser && <LoserModal />}
-        {!play && <PauseModal />}
-        {countDown !== 0 && play ? (
-          <View style={[styles.countDownContainer]}>
-            <AppText style={[font.extremeLarge_bold, styles.countDown]}>
-              {countDown}
-            </AppText>
-          </View>
-        ) : (
-          <React.Fragment>
-            {tiles.map((tile, key) => (
-              <Tile
-                key={key}
-                index={tile.index}
-                chord={tile.chord}
-                initialDelay={tile.initialDelay}
-              />
-            ))}
-          </React.Fragment>
-        )}
+    <AppLayout style={[styles.container]}>
+      <View style={[styles.header]}>
+        <ScreenHeader />
       </View>
+      {loser && <LoserModal />}
+      {!play && <PauseModal />}
+      {countDown !== 0 && play ? (
+        <View style={[styles.countDownContainer]}>
+          <AppText style={[font.extremeLarge_bold, styles.countDown]}>
+            {countDown}
+          </AppText>
+        </View>
+      ) : (
+        <React.Fragment>
+          {tiles.map((tile, key) => (
+            <Tile
+              key={key}
+              index={tile.index}
+              chord={tile.chord}
+              initialDelay={tile.initialDelay}
+            />
+          ))}
+        </React.Fragment>
+      )}
     </AppLayout>
-  );
-};
-
-const AppIndicator = () => {
-  return (
-    <View style={[styles.indicatorContainer]}>
-      <ActivityIndicator size={"large"} color={"#000000"} />
-    </View>
   );
 };
 
@@ -70,10 +63,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     backgroundColor: "#FFFFFF",
   },
-  indicatorContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  header: {
+    left: 0,
+    right: 0,
+    zIndex: 10,
+    position: "absolute",
   },
   countDown: {
     opacity: 0.3,
@@ -82,6 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "transparent",
   },
 });
 

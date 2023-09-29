@@ -12,11 +12,13 @@ import { MainStackProps } from "../../../navigation/routes/Main";
 const PauseModal = () => {
   const navigation = useNavigation<NativeStackNavigationProp<MainStackProps>>();
 
-  const { setPlay, setTapCounter } = React.useContext(LevelContext);
+  const { setPlay, setTapCounter, checkHighScore } =
+    React.useContext(LevelContext);
 
   const resume = () => setPlay(true);
 
   const quit = () => {
+    checkHighScore();
     setPlay(false);
     setTapCounter(0);
     navigation.navigate("Welcome");

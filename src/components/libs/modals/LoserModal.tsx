@@ -12,15 +12,18 @@ import { MainStackProps } from "../../../navigation/routes/Main";
 const LoserModal = () => {
   const navigation = useNavigation<NativeStackNavigationProp<MainStackProps>>();
 
-  const { setLoser, setTapCounter } = React.useContext(LevelContext);
+  const { setLoser, setTapCounter, checkHighScore } =
+    React.useContext(LevelContext);
 
   const restart = () => {
+    checkHighScore();
     setLoser(false);
     setTapCounter(0);
     return;
   };
 
   const quit = () => {
+    checkHighScore();
     setLoser(false);
     setTapCounter(0);
     navigation.navigate("Welcome");

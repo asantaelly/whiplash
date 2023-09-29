@@ -12,7 +12,8 @@ import PressableIcon from "../libs/icons/PressableIcon";
 type Props = {};
 
 const Header: React.FC<Props> = (props) => {
-  const { play, setPlay, tapCounter } = React.useContext(LevelContext);
+  const { play, setPlay, highScore, tapCounter } =
+    React.useContext(LevelContext);
 
   const point = tapCounter / 10;
   const pauseICON = play ? "pause" : "play";
@@ -22,7 +23,9 @@ const Header: React.FC<Props> = (props) => {
     <SafeAreaView style={[styles.container]} edges={["top", "left", "right"]}>
       <View style={[styles.header, main.shadow]}>
         <View style={[styles.scoreBoard]}>
-          <AppText style={[font.small_bold]}>{`Champion: 21342`}</AppText>
+          <AppText
+            style={[font.small_bold]}
+          >{`Champion: ${highScore}`}</AppText>
           <AppText style={[font.small_bold]}>{`Points: ${point}`}</AppText>
         </View>
         <View style={[styles.avatarCircular]}>

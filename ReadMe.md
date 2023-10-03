@@ -8,7 +8,6 @@ https://github.com/asantaelly/whiplash/assets/42144545/6c3b23b4-9279-4673-b76e-3
 
 
 
-
 #### System Requirement
 
     - Node - >= 16+
@@ -19,10 +18,10 @@ https://github.com/asantaelly/whiplash/assets/42144545/6c3b23b4-9279-4673-b76e-3
 
 #### Environment Setup
 
-- React-Native Documetation - [Expo CLI Quickstart](https://reactnative.dev/docs/environment-setup)
+- React-Native Documentation - [Expo CLI Quickstart](https://reactnative.dev/docs/environment-setup)
 
 
-Clone this repository to your local machine after following the above instruction.
+Clone this repository to your local machine after following the above instructions.
 
 ```
 git clone https://github.com/asantaelly/whiplash.git
@@ -36,20 +35,23 @@ Install project dependencies
 yarn install
 ```
   
-Install Expo Go app for ios or Adroid.
+Install the Expo Go app for iOS or Android.
 
 - [Android Play Store](https://play.google.com/store/apps/details?id=host.exp.exponent) - Android Lollipop (5) and greater
 - [iOS App Store](https://apps.apple.com/app/expo-go/id982107779) -  iOS 11 and greater
 
  
- -After install expo go app, Connect you phone to you computer using usb as explained in Environment setup.
+ -After installing the Expo Go app, Connect your phone to your computer using USB as explained in the Environment setup.
  
  Now you can start your app
  ```
  npx expo start -c
  ```
+## Support
+
+- Email shoo.kevin@gmail.com
 
 ## License
 
-* **GNU General**  
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 

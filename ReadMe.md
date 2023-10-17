@@ -1,6 +1,6 @@
 # Whiplash
 
-A world-class challenge for those who think tapping a screen is the pinnacle of human achievement
+a simple game inspired by piano-tiles game.
 
 
 ![whiplash-concept](https://github.com/asantaelly/whiplash/assets/42144545/fc4d31ed-b44b-4d5d-9e3d-8ab9b01245e8)

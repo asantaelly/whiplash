@@ -6,12 +6,6 @@ a simple game inspired by piano-tiles game.
 ![whiplash-concept](https://github.com/asantaelly/whiplash/assets/42144545/fc4d31ed-b44b-4d5d-9e3d-8ab9b01245e8)
 
 
-
-
-https://github.com/asantaelly/whiplash/assets/42144545/6c3b23b4-9279-4673-b76e-3482a6dd782d
-
-
-
 #### System Requirement
 
     - Node - >= 16+

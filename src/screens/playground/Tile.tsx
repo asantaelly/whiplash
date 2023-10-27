@@ -44,6 +44,13 @@ const Tile: React.FC<Props> = (props) => {
    *
    */
   const playSound = async () => {
+    /**
+     *
+     *  Stop Tile sound that is currently playing
+     *
+     */
+    stopSound();
+
     try {
       const { sound } = await Audio.Sound.createAsync(chord);
       setSound(sound);

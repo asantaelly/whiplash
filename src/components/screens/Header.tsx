@@ -15,7 +15,6 @@ const Header: React.FC<Props> = (props) => {
   const { play, setPlay, highScore, tapCounter } =
     React.useContext(LevelContext);
 
-  const point = tapCounter / 10;
   const pauseICON = play ? "pause" : "play";
   const pauseAction = () => setPlay((previous) => !previous);
 
@@ -26,7 +25,7 @@ const Header: React.FC<Props> = (props) => {
           <AppText
             style={[font.small_bold]}
           >{`Champion: ${highScore}`}</AppText>
-          <AppText style={[font.small_bold]}>{`Points: ${point}`}</AppText>
+          <AppText style={[font.small_bold]}>{`Points: ${tapCounter}`}</AppText>
         </View>
         <View style={[styles.avatarCircular]}>
           <PressableIcon

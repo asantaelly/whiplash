@@ -75,10 +75,11 @@ const Tile: React.FC<Props> = (props) => {
   const translateY1 = useSharedValue(Configurations.INITIAL_TRANSLATEY);
 
   const derivedDuration = useDerivedValue(() => {
-    if (tapCounter >= 3200) {
+    const timer = tapCounter * 20;
+    if (timer >= 3200) {
       return (duration.value = Configurations.FINAL_DURATION);
     } else {
-      return duration.value - tapCounter;
+      return duration.value - timer;
     }
   });
 
@@ -138,7 +139,7 @@ const Tile: React.FC<Props> = (props) => {
     })
     .onFinalize(() => {
       // runOnJS(stopSound)();
-      runOnJS(setTapCounter)(tapCounter + 10);
+      runOnJS(setTapCounter)(tapCounter + 1);
       runOnJS(playGame)();
     });
 

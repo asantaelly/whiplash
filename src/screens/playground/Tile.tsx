@@ -145,10 +145,11 @@ const Tile: React.FC<Props> = (props) => {
       translateY1.value = Configurations.INITIAL_TRANSLATEY;
     })
     .onFinalize(() => {
-      // runOnJS(stopSound)();
       runOnJS(setTapCounter)(tapCounter + 1);
       runOnJS(playGame)();
-    });
+    }).onTouchesCancelled(() => {
+      runOnJS(stopSound)()
+    })
 
   /**
    *

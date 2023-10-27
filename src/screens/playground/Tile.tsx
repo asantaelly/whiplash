@@ -11,8 +11,8 @@ import Animated, {
   withTiming,
   useSharedValue,
   useDerivedValue,
-  useAnimatedStyle,
   cancelAnimation,
+  useAnimatedStyle,
 } from "react-native-reanimated";
 
 import { LevelContext } from "../../providers/Level";

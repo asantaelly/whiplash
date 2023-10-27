@@ -28,9 +28,8 @@ const LevelProvider: React.FC<ComponentProps> = (props) => {
   const [tapCounter, setTapCounter] = React.useState<number>(0);
 
   const checkHighScore = () => {
-    const score = tapCounter;
-    if (score > highScore) {
-      setHighScore(score);
+    if (tapCounter > highScore) {
+      setHighScore(tapCounter);
       SecureStore.setItemAsync("champion", highScore.toString());
     }
   };

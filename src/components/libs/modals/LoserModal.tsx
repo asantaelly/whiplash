@@ -19,7 +19,6 @@ const LoserModal = () => {
     checkHighScore();
     setLoser(false);
     setTapCounter(0);
-    return;
   };
 
   const quit = () => {

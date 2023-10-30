@@ -6,7 +6,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 /** local imports */
 import AppText from "../text/AppText";
 import { font } from "../../../themes/fonts";
-import { LevelContext } from "../../../providers/Level";
+import { LevelContext } from "../../../contexts/game-level";
 import { MainStackProps } from "../../../navigation/routes/Main";
 
 const PauseModal = () => {

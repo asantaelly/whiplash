@@ -2,7 +2,7 @@ import React from "react";
 import * as SecureStore from "expo-secure-store";
 
 import MainStack from "./routes/Main";
-import { LevelContext } from "../providers/Level";
+import { LevelContext } from "../contexts/game-level";
 
 const AppNavigator = () => {
   const { setHighScore } = React.useContext(LevelContext);

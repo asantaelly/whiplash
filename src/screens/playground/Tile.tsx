@@ -15,7 +15,7 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 
-import { LevelContext } from "../../providers/Level";
+import { LevelContext } from "../../contexts/game-level";
 
 type Props = {
   index: number;
@@ -147,9 +147,10 @@ const Tile: React.FC<Props> = (props) => {
     .onFinalize(() => {
       runOnJS(setTapCounter)(tapCounter + 1);
       runOnJS(playGame)();
-    }).onTouchesCancelled(() => {
-      runOnJS(stopSound)()
     })
+    .onTouchesCancelled(() => {
+      runOnJS(stopSound)();
+    });
 
   /**
    *

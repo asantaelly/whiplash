@@ -6,7 +6,7 @@ import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 /** local imports */
 import AppText from "../text/AppText";
 import { font } from "../../../themes/fonts";
-import { LevelContext } from "../../../providers/Level";
+import { LevelContext } from "../../../contexts/game-level";
 import { MainStackProps } from "../../../navigation/routes/Main";
 
 const LoserModal = () => {

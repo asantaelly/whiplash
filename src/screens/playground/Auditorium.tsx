@@ -5,7 +5,7 @@ import Tile from "./Tile";
 import tiles from "./tiles";
 import { font } from "../../themes/fonts";
 import AppLayout from "../../layouts/AppLayout";
-import { LevelContext } from "../../providers/Level";
+import { LevelContext } from "../../contexts/game-level";
 import AppText from "../../components/libs/text/AppText";
 import ScreenHeader from "../../components/screens/Header";
 import LoserModal from "../../components/libs/modals/LoserModal";
@@ -55,6 +55,8 @@ const Auditorium = () => {
   );
 };
 
+export default Auditorium;
+
 const styles = StyleSheet.create({
   container: {
     gap: 5,
@@ -79,5 +81,3 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
   },
 });
-
-export default Auditorium;

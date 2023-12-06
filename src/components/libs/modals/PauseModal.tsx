@@ -3,11 +3,10 @@ import { useNavigation } from "@react-navigation/native";
 import { Modal, StyleSheet, TouchableOpacity, View } from "react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-/** local imports */
+import { font } from "themes/fonts";
 import AppText from "../text/AppText";
-import { font } from "../../../themes/fonts";
-import { LevelContext } from "../../../contexts/game-level";
-import { MainStackProps } from "../../../navigation/routes/Main";
+import { LevelContext } from "providers/game-level";
+import { MainStackProps } from "navigation/routes/Main";
 
 const PauseModal = () => {
   const navigation = useNavigation<NativeStackNavigationProp<MainStackProps>>();

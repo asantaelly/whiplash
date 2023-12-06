@@ -2,11 +2,10 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-/** local imports */
-import main from "../../styles/main";
-import { font } from "../../themes/fonts";
+import main from "styles/main";
+import { font } from "themes/fonts";
 import AppText from "../libs/text/AppText";
-import { LevelContext } from "../../contexts/game-level";
+import { LevelContext } from "providers/game-level";
 import PressableIcon from "../libs/icons/PressableIcon";
 
 type Props = {};

@@ -15,7 +15,7 @@ import Animated, {
   useAnimatedStyle,
 } from "react-native-reanimated";
 
-import { LevelContext } from "../../contexts/game-level";
+import { LevelContext } from "providers/game-level";
 
 type Props = {
   index: number;
@@ -38,17 +38,7 @@ const Tile: React.FC<Props> = (props) => {
   const { play, loser, setLoser, tapCounter, setTapCounter } =
     React.useContext(LevelContext);
 
-  /**
-   *
-   *  Play Tile Sound
-   *
-   */
   const playSound = async () => {
-    /**
-     *
-     *  Stop Tile sound that is currently playing
-     *
-     */
     stopSound();
 
     try {
@@ -61,11 +51,6 @@ const Tile: React.FC<Props> = (props) => {
     }
   };
 
-  /**
-   *
-   *  Stop Tile Sound
-   *
-   */
   const stopSound = async () => {
     try {
       if (sound) {
@@ -94,12 +79,7 @@ const Tile: React.FC<Props> = (props) => {
     transform: [{ translateY: translateY1.value }],
   }));
 
-  /**
-   *
-   * Play the Game function
-   *
-   *
-   */
+  /** Game init */
   const playGame = () => {
     translateY1.value = withDelay(
       delay.value,
@@ -123,22 +103,12 @@ const Tile: React.FC<Props> = (props) => {
     );
   };
 
-  /**
-   *
-   *  Restart the Game function
-   *
-   */
   const restart = () => {
     duration.value = Configurations.INITIAL_DURATION;
     translateY1.value = Configurations.INITIAL_TRANSLATEY;
     playGame();
   };
 
-  /**
-   *
-   *  Tap Gesture Handler
-   *
-   */
   const tap = Gesture.Tap()
     .onBegin(() => {
       runOnJS(playSound)();
@@ -152,11 +122,6 @@ const Tile: React.FC<Props> = (props) => {
       runOnJS(stopSound)();
     });
 
-  /**
-   *
-   *  Action to start the game starts here
-   *
-   */
   React.useEffect(() => {
     if (play) {
       playGame();
@@ -165,11 +130,7 @@ const Tile: React.FC<Props> = (props) => {
     }
   }, [play]);
 
-  /**
-   *
-   * Action to check loser!
-   *
-   */
+  /** For losers only */
   React.useEffect(() => {
     if (loser) {
       cancelAnimation(translateY1);

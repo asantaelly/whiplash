@@ -6,7 +6,7 @@ const main = StyleSheet.create({
       width: 10,
       height: 10,
     },
-    elevation: 10,
+    // elevation: 1,
     shadowRadius: 15,
     shadowOpacity: 0.9,
     shadowColor: "#000000",

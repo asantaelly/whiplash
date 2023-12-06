@@ -1,13 +1,12 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { Modal, StyleSheet, TouchableOpacity, View } from "react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-/** local imports */
+import { font } from "themes/fonts";
 import AppText from "../text/AppText";
-import { font } from "../../../themes/fonts";
-import { LevelContext } from "../../../contexts/game-level";
-import { MainStackProps } from "../../../navigation/routes/Main";
+import { LevelContext } from "providers/game-level";
+import { MainStackProps } from "navigation/routes/Main";
 
 const LoserModal = () => {
   const navigation = useNavigation<NativeStackNavigationProp<MainStackProps>>();

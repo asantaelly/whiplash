@@ -6,9 +6,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
-import LevelProvider from "./src/contexts/game-level";
-import AppNavigator from "./src/navigation/AppNavigator";
-import fontDefinitions from "./src/themes/fonts/definition";
+import LevelProvider from "providers/game-level";
+import AppNavigator from "navigation/AppNavigator";
+import fontDefinitions from "themes/fonts/definition";
 
 SplashScreen.preventAutoHideAsync();
 

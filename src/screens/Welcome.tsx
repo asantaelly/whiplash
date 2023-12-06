@@ -3,12 +3,12 @@ import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-import main from "../styles/main";
-import { font } from "../themes/fonts";
-import AppLayout from "../layouts/AppLayout";
-import { LevelContext } from "../contexts/game-level";
-import AppText from "../components/libs/text/AppText";
-import { MainStackProps } from "../navigation/routes/Main";
+import main from "styles/main";
+import { font } from "themes/fonts";
+import AppLayout from "layouts/AppLayout";
+import { LevelContext } from "providers/game-level";
+import AppText from "components/libs/text/AppText";
+import { MainStackProps } from "navigation/routes/Main";
 
 const Welcome = () => {
   const { setPlay } = React.useContext(LevelContext);

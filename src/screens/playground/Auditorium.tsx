@@ -3,13 +3,13 @@ import { View, StyleSheet } from "react-native";
 
 import Tile from "./Tile";
 import tiles from "./tiles";
-import { font } from "../../themes/fonts";
-import AppLayout from "../../layouts/AppLayout";
-import { LevelContext } from "../../contexts/game-level";
-import AppText from "../../components/libs/text/AppText";
-import ScreenHeader from "../../components/screens/Header";
-import LoserModal from "../../components/libs/modals/LoserModal";
-import PauseModal from "../../components/libs/modals/PauseModal";
+import { font } from "themes/fonts";
+import AppLayout from "layouts/AppLayout";
+import AppText from "components/libs/text/AppText";
+import { LevelContext } from "providers/game-level";
+import ScreenHeader from "components/screens/Header";
+import LoserModal from "components/libs/modals/LoserModal";
+import PauseModal from "components/libs/modals/PauseModal";
 
 const Auditorium = () => {
   const [countDown, setCountDown] = React.useState(3);
